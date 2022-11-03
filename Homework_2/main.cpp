@@ -21,7 +21,7 @@ void test1() {
     }
     i << 2, 0, 1, 0, 0, 2;
     o << 0, 2, 0, 1, 2, 0;
-    PetriNet *net = PetriNet::GetInstance(p, t, i, o, m_0);
+    PetriNet *net = new PetriNet(p, t, i, o, m_0);
     std::cout << "m_0:\n" << net->GetMarking() << std::endl;
     std::cout << "m_0.size()\n" << m_0.size() << std::endl;
     std::cout << "m_0_transpose\n" << m_0.transpose() << std::endl;
@@ -77,7 +77,7 @@ void test4() {
     }
     i << 2, 0, 1, 0, 0, 2;
     o << 0, 2, 0, 1, 2, 0;
-    PetriNet *net = PetriNet::GetInstance(p, t, i, o, m_0);
+    PetriNet *net = new PetriNet(p, t, i, o, m_0);
     std::cout << "\nm_0:\n" << net->GetMarking() << std::endl;
     std::vector<int> t_to_fire = net->GetFirableTransition();
     for (auto k : t_to_fire) {
@@ -121,7 +121,7 @@ void test5() {
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0;
-    PetriNet *net = PetriNet::GetInstance(p, t, i, o, m_0);
+    PetriNet *net = new PetriNet(p, t, i, o, m_0);
     std::cout << "m_0:\n" << net->GetMarking() << std::endl;
     std::vector<int> t_to_fire = net->GetFirableTransition();
     for (auto k : t_to_fire) {
@@ -171,7 +171,7 @@ void test6() {
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0;
-    PetriNet *net = PetriNet::GetInstance(p, t, i, o, m_0);
+    PetriNet *net = new PetriNet(p, t, i, o, m_0);
     // 生成可达图并展示
     ReachabilityGraph r_graph;
     bool res = r_graph.BuildReachabilityGraph(net);
@@ -241,7 +241,7 @@ void test9() {
     }
     i << 2, 0, 1, 0, 0, 2;
     o << 0, 2, 0, 1, 2, 0;
-    PetriNet *net = PetriNet::GetInstance(p, t, i, o, m_0);
+    PetriNet *net = new PetriNet(p, t, i, o, m_0);
     // 生成可达图并展示
     ReachabilityGraph r_graph;
     bool res = r_graph.BuildReachabilityGraph(net);
@@ -263,7 +263,7 @@ void test9() {
 }
 int main() {
     printf("hello world!\n");
-    test6();
+    test9();
     return 0;
 }
 // TODO:

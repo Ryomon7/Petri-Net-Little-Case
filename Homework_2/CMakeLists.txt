@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(Homework_1)
+project(Homework_2)
 include_directories(../eigen-3.4.0)
 set(CMAKE_CXX_STANDARD 14)
 

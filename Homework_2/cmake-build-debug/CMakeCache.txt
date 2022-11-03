@@ -151,7 +151,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Homework_1
+CMAKE_PROJECT_NAME:STATIC=Homework_2
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=E:/program/JetBrains/CLion 2022.2.3/bin/mingw/bin/ranlib.exe
@@ -241,6 +241,15 @@ Homework_1_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Homework_1_SOURCE_DIR:STATIC=C:/Users/LvMeng/Desktop/PetriNetCode/Homework_2
+
+//Value Computed by CMake
+Homework_2_BINARY_DIR:STATIC=C:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/cmake-build-debug
+
+//Value Computed by CMake
+Homework_2_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+Homework_2_SOURCE_DIR:STATIC=C:/Users/LvMeng/Desktop/PetriNetCode/Homework_2
 
 
 ########################

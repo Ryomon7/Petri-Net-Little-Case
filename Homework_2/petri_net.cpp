@@ -4,7 +4,6 @@
 //
 #include <vector>
 #include "petri_net.h"
-PetriNet *PetriNet::instance_ = nullptr;
 // 私有含参构造函数
 PetriNet::PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
                    Eigen::MatrixXi &i, Eigen::MatrixXi &o,
@@ -20,14 +19,6 @@ PetriNet::PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
     // 初始状态就是m0
     marking_ = m_0;
     FreshFirableTransition();
-}
-// 单例instance唯一访问方式
-PetriNet *PetriNet::GetInstance(Eigen::VectorXi &p, Eigen::VectorXi &t,
-                                Eigen::MatrixXi &i, Eigen::MatrixXi &o,
-                                Eigen::VectorXi &m_0) {
-    if (instance_ == nullptr) //若实例不存在，则new一个实例；否则返回已有实例
-        instance_ = new PetriNet(p, t, i, o, m_0);
-    return instance_;
 }
 // 获取当前的marking状态
 const Eigen::VectorXi &PetriNet::GetMarking() const {
@@ -70,11 +61,5 @@ void PetriNet::FiringATransition(const int t) {
         FreshFirableTransition();
     }
 }
-
-
-
-
-
-
 
 
