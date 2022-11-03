@@ -1,0 +1,6 @@
+# ninja log v5
+28	5919	6866540507850442	CMakeFiles/Homework_1.dir/main.cpp.obj	a4c818a28ff56b2f
+5920	8048	6866540529098021	Homework_1.exe	f218cb90e0609808
+2	1899	6891014420501594	build.ninja	5a89e8ace09db9dd
+158	3887	6865829134953658	CMakeFiles/Homework_1.dir/petri_net.cpp.obj	56affcbdd0cf2bc3
+206	3885	6865829134864051	CMakeFiles/Homework_1.dir/reachability_graph.cpp.obj	be71a7c6a507c073
