@@ -4,7 +4,7 @@
 //
 #include <vector>
 #include "petri_net.h"
-// 私有含参构造函数
+// 含参构造函数
 PetriNet::PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
                    Eigen::MatrixXi &i, Eigen::MatrixXi &o,
                    Eigen::VectorXi &m_0) {
@@ -20,7 +20,7 @@ PetriNet::PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
     marking_ = m_0;
     FreshFirableTransition();
 }
-// 获取当前的marking状态
+// 获取当前的marking
 const Eigen::VectorXi &PetriNet::GetMarking() const {
     return marking_;
 }
@@ -34,7 +34,7 @@ const std::vector<int> &PetriNet::GetFirableTransition() const {
     return firable_transition_;
 }
 // 更新当前可用激发：marking改变后皆需调用此函数
-void PetriNet::FreshFirableTransition() {
+bool PetriNet::FreshFirableTransition() {
     Eigen::VectorXi vector_temp(num_of_place_);
     std::vector<int> firable_trans;
     for (int i = 0; i < num_of_trans_; i++) {
@@ -47,19 +47,21 @@ void PetriNet::FreshFirableTransition() {
         if (flag) firable_trans.emplace_back(i);
     }
     firable_transition_ = firable_trans;
+    return PETRI_NET_SUCCESS;
 }
 // 激发一个transition，并改变petri net的marking
-void PetriNet::FiringATransition(const int t) {
+bool PetriNet::FiringATransition(const int t) {
     //保护机制，防止随便传数字，需要check一下是不是可继发
     bool is_in_firable_vec = false;
-    for(auto i:firable_transition_){
-        if(t == i) is_in_firable_vec = true;
+    for (auto i : firable_transition_) {
+        if (t == i) is_in_firable_vec = true;
     }
-    if(is_in_firable_vec){
+    if (is_in_firable_vec) {
         // 如果为可激发的transition才激发petri网 -> 改变marking
         marking_ = marking_ + trans_matrix_.col(t);
         FreshFirableTransition();
+        return PETRI_NET_SUCCESS;
     }
+    return PETRI_NET_FAIL;
 }
-
 

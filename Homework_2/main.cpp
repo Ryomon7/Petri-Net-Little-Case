@@ -261,12 +261,37 @@ void test9() {
         }
     }
 }
+/* void test10() {
+//    // 测试十：定时器功能
+//    tool::TimerQueue q;// 新建一个计时器队列对象
+//    q.Run();
+//    for (int i = 20; i < 25; ++i) {
+//        q.AddFuncAfterDuration(std::chrono::seconds(i + 1),
+//                               [i]() { std::cout << "this is " << i << " DurationTask" << std::endl; });
+//        q.AddFuncAtTimePoint(std::chrono::high_resolution_clock::now() + std::chrono::seconds(1),
+//                             [i]() { std::cout << "this is " << i << " atTask " << std::endl; });
+//    }
+//    std::cout << "addTaskFinish" << std::endl;
+//    int id = q.AddRepeatedFunc(10, std::chrono::seconds(1), []() { std::cout << "RepeatFunc " << std::endl; });
+//    std::this_thread::sleep_for(std::chrono::seconds(4));
+//    q.CancelRepeatedFuncId(id);
+//
+//    std::this_thread::sleep_for(std::chrono::seconds(30));// 手工等待线程执行完毕
+//    q.Stop();
+}*/
+void test10(){
+    TimeAxis t;
+    std::string temp;
+    std::cout << "please input sth.: " << std::endl;
+    std::cin >> temp;
+    long long m = t.elapsed_seconds();
+    std::cout << "time elapsed:" << m << " s" << std::endl;
+}
 int main() {
     printf("hello world!\n");
-    test9();
+    test10();
     return 0;
 }
-// TODO:
 //  缺点一：没有模板化，全用的int类型
 //  缺点二：内部耦合，需要进一步抽象和封装
 // TODO：实现从文件中读取 PN={P,T,I,O,Mi}信息

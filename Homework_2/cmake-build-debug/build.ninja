@@ -41,52 +41,52 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target Homework_1
+# Object build statements for EXECUTABLE target Homework_2
 
 
 #############################################
-# Order-only phony target for Homework_1
+# Order-only phony target for Homework_2
 
-build cmake_object_order_depends_target_Homework_1: phony || CMakeFiles/Homework_1.dir
+build cmake_object_order_depends_target_Homework_2: phony || CMakeFiles/Homework_2.dir
 
-build CMakeFiles/Homework_1.dir/main.cpp.obj: CXX_COMPILER__Homework_1_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/main.cpp || cmake_object_order_depends_target_Homework_1
-  DEP_FILE = CMakeFiles\Homework_1.dir\main.cpp.obj.d
+build CMakeFiles/Homework_2.dir/main.cpp.obj: CXX_COMPILER__Homework_2_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/main.cpp || cmake_object_order_depends_target_Homework_2
+  DEP_FILE = CMakeFiles\Homework_2.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -IC:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/../eigen-3.4.0
-  OBJECT_DIR = CMakeFiles\Homework_1.dir
-  OBJECT_FILE_DIR = CMakeFiles\Homework_1.dir
+  OBJECT_DIR = CMakeFiles\Homework_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Homework_2.dir
 
-build CMakeFiles/Homework_1.dir/petri_net.cpp.obj: CXX_COMPILER__Homework_1_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/petri_net.cpp || cmake_object_order_depends_target_Homework_1
-  DEP_FILE = CMakeFiles\Homework_1.dir\petri_net.cpp.obj.d
+build CMakeFiles/Homework_2.dir/petri_net.cpp.obj: CXX_COMPILER__Homework_2_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/petri_net.cpp || cmake_object_order_depends_target_Homework_2
+  DEP_FILE = CMakeFiles\Homework_2.dir\petri_net.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -IC:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/../eigen-3.4.0
-  OBJECT_DIR = CMakeFiles\Homework_1.dir
-  OBJECT_FILE_DIR = CMakeFiles\Homework_1.dir
+  OBJECT_DIR = CMakeFiles\Homework_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Homework_2.dir
 
-build CMakeFiles/Homework_1.dir/reachability_graph.cpp.obj: CXX_COMPILER__Homework_1_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/reachability_graph.cpp || cmake_object_order_depends_target_Homework_1
-  DEP_FILE = CMakeFiles\Homework_1.dir\reachability_graph.cpp.obj.d
+build CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj: CXX_COMPILER__Homework_2_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/reachability_graph.cpp || cmake_object_order_depends_target_Homework_2
+  DEP_FILE = CMakeFiles\Homework_2.dir\reachability_graph.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -IC:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/../eigen-3.4.0
-  OBJECT_DIR = CMakeFiles\Homework_1.dir
-  OBJECT_FILE_DIR = CMakeFiles\Homework_1.dir
+  OBJECT_DIR = CMakeFiles\Homework_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Homework_2.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target Homework_1
+# Link build statements for EXECUTABLE target Homework_2
 
 
 #############################################
-# Link the executable Homework_1.exe
+# Link the executable Homework_2.exe
 
-build Homework_1.exe: CXX_EXECUTABLE_LINKER__Homework_1_Debug CMakeFiles/Homework_1.dir/main.cpp.obj CMakeFiles/Homework_1.dir/petri_net.cpp.obj CMakeFiles/Homework_1.dir/reachability_graph.cpp.obj
+build Homework_2.exe: CXX_EXECUTABLE_LINKER__Homework_2_Debug CMakeFiles/Homework_2.dir/main.cpp.obj CMakeFiles/Homework_2.dir/petri_net.cpp.obj CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\Homework_1.dir
+  OBJECT_DIR = CMakeFiles\Homework_2.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = Homework_1.exe
-  TARGET_IMPLIB = libHomework_1.dll.a
-  TARGET_PDB = Homework_1.exe.dbg
+  TARGET_FILE = Homework_2.exe
+  TARGET_IMPLIB = libHomework_2.dll.a
+  TARGET_PDB = Homework_2.exe.dbg
 
 
 #############################################
@@ -114,7 +114,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build Homework_1: phony Homework_1.exe
+build Homework_2: phony Homework_2.exe
 
 # =============================================================================
 # Folder targets.
@@ -124,7 +124,7 @@ build Homework_1: phony Homework_1.exe
 #############################################
 # Folder: C:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/cmake-build-debug
 
-build all: phony Homework_1.exe
+build all: phony Homework_2.exe
 
 # =============================================================================
 # Built-in targets

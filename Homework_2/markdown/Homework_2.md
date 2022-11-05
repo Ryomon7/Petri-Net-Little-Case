@@ -1,5 +1,12 @@
 [toc]
 
+# 附时网
+
+* 修改PetriNet基类
+* 派生类PlaceTimedPetriNet继承自PetriNet：
+  * 增加私有成员——时间轴time_axis
+    * 依赖C++11高精度时间库\<chrono\>
+
 # 代码
 
 ## 源代码结构
@@ -9,11 +16,11 @@
 * petri_net.cpp
 * reachability_graph.h
 * reachability_graph.cpp
-## petri net类
+## PetriNet类
 
 ```CPP
 class PetriNet {
-private:
+protected:
   //PN={P,T,I,O,Mi}
   Eigen::VectorXi place_; // 库所
   Eigen::VectorXi transition_;// 变迁
@@ -22,26 +29,16 @@ private:
   Eigen::SparseMatrix<int> input_matrix_;// 前置矩阵
   Eigen::SparseMatrix<int> output_matrix_;//后置矩阵
   Eigen::SparseMatrix<int> trans_matrix_;
-  std::vector<int> firable_transition_;//可激发的变迁保存到成员变量中
+  std::vector<int> firable_transition_;//可激发的变迁
   Eigen::VectorXi marking_;// 状态标识
-  static PetriNet *instance_;  //单例对象指针
-
-  // 构造和析构成为私有的, 禁止外部构造和析构
+  // 更新可用激发
+  bool FreshFirableTransition();
+public:
+  PetriNet() = default;
+  ~PetriNet() = default;
   PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
            Eigen::MatrixXi &i, Eigen::MatrixXi &o,
            Eigen::VectorXi &m_0);
-  PetriNet() = default;
-  ~PetriNet() = default;
-  // 更新可用激发
-  void FreshFirableTransition();
-public:
-  // 禁止外部拷贝和赋值
-  PetriNet(const PetriNet &) = delete;
-  const PetriNet &operator=(const PetriNet &) = delete;
-  // 实例化创建。获得本类实例的唯一全局访问点
-  static PetriNet *GetInstance(Eigen::VectorXi &p, Eigen::VectorXi &t,
-                               Eigen::MatrixXi &i, Eigen::MatrixXi &o,
-                               Eigen::VectorXi &m_0);
   // 获取当前petri_net的Marking
   const Eigen::VectorXi &GetMarking() const;
   // 设置marking
@@ -49,9 +46,8 @@ public:
   // 获取可用的激发
   const std::vector<int> &GetFirableTransition() const;
   // 激发一个transition，并改变petri net的状态
-  void FiringATransition(int t);
+  bool FiringATransition(int t);
 };
-#endif //PETRI_NET_H
 ```
 
 ## MarkingNode类
@@ -95,26 +91,6 @@ public:
   const std::vector<MarkingNode> &GetNodes() const;
 };
 ```
-
-# 例子
-
-## 例一：H2O
-<img src="./picture/Pic_2.png" height="500"  align="left">
-
-<div align="left">
-   <img src="./picture/Input_2.png"  height=300><img src="./picture/output_2.png" height=300>
-</div>
-<img src="./picture/program_2.png" height="500"  align="left">
-<img src="./picture/program_result_2.png" height="300"  align="center">
-
-## 例二：自定义的简单网络
-<img src="./picture/Pic_1.png" height="400"  align="center">
-
-<div align="left">
-   <img src="./picture/Input_1.png"  height=400><img src="./picture/output_1.png" height=400>
-</div>
-<img src="./picture/program_1.png" height="700"  align="left">
-<img src="./picture/program_result_1.png" width="600"  align="center">
 
 
 
