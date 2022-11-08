@@ -53,7 +53,8 @@ bool ReachabilityGraph::BuildReachabilityGraph(PetriNet *petri_net) {
             if (follow_index == -1) {// 若marking没出现过会返回-1
                 marking_number_++;// 出现全新状态，计数器+1
                 v_new_.emplace_back(follow_marking); // 加入v_new_等待激发
-                v_old_.emplace(Vector2String(follow_marking), std::make_pair(false, marking_number_));// 加入v_old_记录编号，状态设置为未激发
+                v_old_.emplace(Vector2String(follow_marking),
+                               std::make_pair(false, marking_number_));// 加入v_old_记录编号，状态设置为未激发
                 AddNode(marking_number_, follow_marking);// 可达图新增节点
                 follow_index = marking_number_;
             }

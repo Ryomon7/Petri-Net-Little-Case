@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Homework_2 main.cpp main.cpp main.cpp petri_net.h petri_net.cpp
                reachability_graph.h reachability_graph.cpp
-               tool/timer.h tool/thread_pool.h tool/map_tool.h time_axis.h)
+               tool/timer.h tool/thread_pool.h tool/map_tool.h tool/time_axis.h _test_petri.h _test_timed_petri.h)
