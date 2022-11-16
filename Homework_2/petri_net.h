@@ -5,13 +5,15 @@
 #ifndef PETRI_NET_H
 #define PETRI_NET_H
 #include <iostream>
+#include <utility>
 #include <vector>
 #include <eigen/core>
 #include <eigen/SparseCore>
 #define PETRI_NET_SUCCESS true
 #define PETRI_NET_FAIL false
 #define MAX_INT (((unsigned int)(-1))>>1)
-/* PetriNet基类:
+/* **************************************
+ * PetriNet基类:
  * 1. 继承自PetriNet;
  * 2. PN={P,T,I,O,Mi};
  * 3. 采取从外部fire的策略，激发前应当检查可激发的变迁;
@@ -20,7 +22,7 @@
  *      SetMarking - 设置petri网的状态;
  *      GetFirableTransition - 获取可激发的变迁;
  *      FiringATransition - 激发一个变迁;
- */
+ * **************************************/
 class PetriNet {
 protected:
   Eigen::VectorXi place_; // 库所
@@ -33,44 +35,74 @@ protected:
   std::vector<int> firable_transition_;//可激发的变迁
   Eigen::VectorXi marking_;// 状态标识
 private:
-  // 更新可用激发
   bool FreshFirableTransition();
 public:
   PetriNet() = default;
   ~PetriNet() = default;
   PetriNet(Eigen::VectorXi &p, Eigen::VectorXi &t,
            Eigen::MatrixXi &i, Eigen::MatrixXi &o,
-           Eigen::VectorXi &m_0);
-  // 获取当前petri_net的Marking
+           Eigen::VectorXi &m_0) {
+      place_ = p;
+      transition_ = t;
+      num_of_place_ = static_cast<int>(p.size());
+      num_of_trans_ = static_cast<int>(t.size());
+      // 采用稀疏矩阵来表示input、output、trans，优点：节省存储空间
+      input_matrix_ = i.sparseView();
+      output_matrix_ = o.sparseView();
+      trans_matrix_ = (o - i).sparseView();
+      // 初始状态就是m0
+      marking_ = m_0;
+      FreshFirableTransition();
+  }
   const Eigen::VectorXi &GetMarking() const;
-  // 设置marking
   void SetMarking(const Eigen::VectorXi &marking);
-  // 获取可用的激发
   const std::vector<int> &GetFirableTransition() const;
-  // 激发一个transition，并改变petri net的状态
   bool FiringATransition(int t);
 };
 
-/* 库所附时网PlaceTimedPetriNet:
+/* **************************************
+ * Timed_Petri_Net信息类:
+ * 保存TimedPetriNet的状态信息, 方便reset时使用使用
+ * **************************************/
+class TimedPetriNetInfo {
+public:
+  int time_stamp_info = 0;// 时间戳--g
+  Eigen::VectorXi marking_info; // 状态--M
+  Eigen::VectorXi token_wait_time_info; // token在库等待时间信息--v
+  Eigen::VectorXi token_entry_time_info;// token入库时间信息
+
+  TimedPetriNetInfo() = default;
+  TimedPetriNetInfo(int time_stamp_info,
+                    Eigen::VectorXi marking_info,
+                    Eigen::VectorXi token_wait_time_info,
+                    Eigen::VectorXi token_entry_time_info)
+      : time_stamp_info(time_stamp_info),
+        marking_info(std::move(marking_info)),
+        token_wait_time_info(std::move(token_wait_time_info)),
+        token_entry_time_info(std::move(token_entry_time_info)) {}
+};
+/* **************************************
+ * 库所附时网PlaceTimedPetriNet类:
  * 1. PetriNet的派生类, PN={P,T,I,O,Mi,D};
  * 2. 采取从外部fire的策略，激发前需要检查可激发的变迁，需要更新;
- * 3. 掩盖基类FreshFirableTransition、GetFirableTransitio、FiringATransition
- */
+ * 3. FreshFirableTransition、FiringATransition
+ * **************************************/
 class PlaceTimedPetriNet : public PetriNet {
 private:
   int time_origin_;// 时间起点
   int time_stamp_;// 时间戳--g
-  std::pair<int,int> next_firable_information_;// 下一个变迁准备就绪还需要等待的 <时间, trans> --\lambda
+  std::pair<int, int> next_firable_information_;// 下一个变迁准备就绪还需要等待的 <时间, trans> --\lambda
   Eigen::VectorXi place_delay_;// 库所需要时延（客观配置）--d
-  Eigen::VectorXi token_entry_time_;// token入库时间, 激发后需要修改入库时间
   Eigen::VectorXi token_wait_time_;// 等待时间--v, 更新时间戳后需要修改等待时间
+  Eigen::VectorXi token_entry_time_;// token入库时间, 激发后需要修改入库时间
   std::vector<int> untimed_firable_transition_;// 在未来可能激发的变迁
 
-  bool UntimedFreshFirableTransition();// 刷新TimedPetriNet <未来> 可激发的变迁
-  bool CalcNextFirableInformation();// 计算下次激发需等待的最短时间
-  bool FreshFirableTransition();// 刷新TimedPetriNet <当前> 可激发的变迁
-  bool FreshTokenWaitTime();// 刷新Token等待时间
-  bool FreshPlaceTimedPetriNet();// 集合了刷新操作
+  void SetTimeStamp(int time_stamp);
+  bool UntimedFreshFirableTransition();
+  bool CalcNextFirableInformation();
+  bool FreshFirableTransition();
+  bool FreshTokenWaitTime();
+  bool FreshPlaceTimedPetriNet();
 public:
   PlaceTimedPetriNet(Eigen::VectorXi &p,
                      Eigen::VectorXi &t,
@@ -81,23 +113,19 @@ public:
                                                      place_delay_(place_delay),
                                                      time_origin_(0),
                                                      time_stamp_(0) {
-      token_entry_time_= Eigen::VectorXi::Zero(num_of_place_);
-      token_wait_time_= Eigen::VectorXi::Zero(num_of_place_);
+      token_entry_time_ = Eigen::VectorXi::Zero(num_of_place_);
+      token_wait_time_ = Eigen::VectorXi::Zero(num_of_place_);
       FreshPlaceTimedPetriNet();
   }
-  // 设置时间戳
-  void SetTimeStamp(int time_stamp);
   int GetTimeStamp() const;
-  // 获取Token等待时间--v
+  bool FastForward(int add_time);
   const Eigen::VectorXi &GetTokenWaitTime() const;
-  /********************************************
-   * （遮盖）激发一个transition，并改变petri net的状态
-   *  激发之后记得去修改，进库时间，petri网的时间戳
-   ********************************************/
-  bool FiringATransition(int t, int time_stamp);
-  // 获取下次变换信息
+  void SetTokenWaitTime(const Eigen::VectorXi &token_wait_time);
+  const Eigen::VectorXi &GetTokenEntryTime() const;
+  void SetTokenEntryTime(const Eigen::VectorXi &token_entry_time);
+  bool FiringATransition(int t, int add_time_stamp);
   const std::pair<int, int> &GetNextFirableInformation() const;
-
+  bool ResetTimedPetriNet(const TimedPetriNetInfo &timed_petri_net_info);
 };
 /* 变迁附时petri网TransitionTimedPetriNet */
 class TransitionTimedPetriNet : public PetriNet {};

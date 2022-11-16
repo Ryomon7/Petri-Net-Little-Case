@@ -70,6 +70,13 @@ build CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj: CXX_COMPILER__Homewo
   OBJECT_DIR = CMakeFiles\Homework_2.dir
   OBJECT_FILE_DIR = CMakeFiles\Homework_2.dir
 
+build CMakeFiles/Homework_2.dir/timed_reachability_graph.cpp.obj: CXX_COMPILER__Homework_2_Debug C$:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/timed_reachability_graph.cpp || cmake_object_order_depends_target_Homework_2
+  DEP_FILE = CMakeFiles\Homework_2.dir\timed_reachability_graph.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -IC:/Users/LvMeng/Desktop/PetriNetCode/Homework_2/../eigen-3.4.0
+  OBJECT_DIR = CMakeFiles\Homework_2.dir
+  OBJECT_FILE_DIR = CMakeFiles\Homework_2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Homework_2
@@ -78,7 +85,7 @@ build CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj: CXX_COMPILER__Homewo
 #############################################
 # Link the executable Homework_2.exe
 
-build Homework_2.exe: CXX_EXECUTABLE_LINKER__Homework_2_Debug CMakeFiles/Homework_2.dir/main.cpp.obj CMakeFiles/Homework_2.dir/petri_net.cpp.obj CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj
+build Homework_2.exe: CXX_EXECUTABLE_LINKER__Homework_2_Debug CMakeFiles/Homework_2.dir/main.cpp.obj CMakeFiles/Homework_2.dir/petri_net.cpp.obj CMakeFiles/Homework_2.dir/reachability_graph.cpp.obj CMakeFiles/Homework_2.dir/timed_reachability_graph.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Homework_2.dir
