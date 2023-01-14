@@ -14,6 +14,7 @@
 
   > 编写Timed petri net 类，继承于petri net 类，并编写了Timed reachability graph用于生成附时Petri网的可达图。并且为函数和类增加了注释表
   >
+* Term_paper：期末论文作业
 # How to use it
 * 需要下载本仓库的代码
 * 需要下载[Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)的代码（请参考attention第2条）
